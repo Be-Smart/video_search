@@ -4,6 +4,9 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import axios from 'axios';
 import SearchBar from './components/search_bar';
+import VideoList from './components/video_list';
+import VideoDetail from './components/video_detail';
+
 
 const API_PARAMS = {
   LINK: 'https://www.googleapis.com/youtube/v3/search?',
@@ -20,12 +23,18 @@ class App extends React.Component {
   constructor (props) {
     super(props);
 
-    this.state = { videos: [] };
+    this.state = {
+      videos: [],
+      selectedVideo: null
+    };
 
     axios.get(API_REQUEST)
     .then(res => {
-      this.setState({videos: res.data.items});
-      console.log(this.state.videos);
+      this.setState({
+        videos: res.data.items,
+        selectedVideo: res.data.items[0]
+      });
+      console.log(this.state.videos[0]);
     })
     .catch(err => {
       console.log(err);
@@ -36,6 +45,10 @@ class App extends React.Component {
     return (
       <div>
         <SearchBar />
+        <VideoDetail video={this.state.selectedVideo} />
+        <VideoList
+          onVideoSelect={ selected => this.setState({selectedVideo: selected}) }
+          videos={this.state.videos} />
       </div>
     );
   }
