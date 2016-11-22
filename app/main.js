@@ -14,10 +14,7 @@ const API_PARAMS = {
   PART: 'snippet',
   TYPE: 'video',
   MAX_RESULTS: 10,
-  Q: 'react+js'
 };
-const API_REQUEST = `${API_PARAMS.LINK}part=${API_PARAMS.PART}&q=${API_PARAMS.Q}&type=${API_PARAMS.TYPE}&maxResults=${API_PARAMS.MAX_RESULTS}&key=${API_PARAMS.KEY}`;
-
 
 class App extends React.Component {
   constructor (props) {
@@ -28,23 +25,46 @@ class App extends React.Component {
       selectedVideo: null
     };
 
-    axios.get(API_REQUEST)
+    this._videoSearch();
+  }
+
+  _videoSearch (searchTerm='react+js') {
+    API_PARAMS.Q = searchTerm;
+    let url = `${API_PARAMS.LINK}part=${API_PARAMS.PART}&q=${API_PARAMS.Q}&type=${API_PARAMS.TYPE}&maxResults=${API_PARAMS.MAX_RESULTS}&key=${API_PARAMS.KEY}`;
+
+    axios.get(url)
     .then(res => {
       this.setState({
         videos: res.data.items,
         selectedVideo: res.data.items[0]
       });
-      console.log(this.state.videos[0]);
     })
     .catch(err => {
       console.log(err);
     });
   }
 
+  _debounce (func, wait, immediate) {
+    let timeout;
+    return function() {
+      let context = this, args = arguments;
+      let later = () => {
+        timeout = null;
+        if (!immediate) func.apply(context, args);
+      };
+      let callNow = immediate && !timeout;
+      clearTimeout(timeout);
+      timeout = setTimeout(later, wait);
+      if (callNow) func.apply(context, args);
+    };
+  }
+
   render () {
+    let videoSearch = this._debounce( (term) => {this._videoSearch(term)}, 500 );
+
     return (
       <div>
-        <SearchBar />
+        <SearchBar onSearchTermChange={videoSearch} />
         <VideoDetail video={this.state.selectedVideo} />
         <VideoList
           onVideoSelect={ selected => this.setState({selectedVideo: selected}) }
