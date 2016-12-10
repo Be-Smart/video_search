@@ -61,12 +61,14 @@ export default class App extends React.Component {
     let videoSearch = this._debounce( (term) => {this._videoSearch(term)}, 500 );
 
     return (
-      <div className='video__container'>
+      <div className='container'>
         <SearchBar onSearchTermChange={videoSearch} />
-        <VideoDetail video={this.state.selectedVideo} />
-        <VideoList
-          onVideoSelect={ selected => this.setState({selectedVideo: selected}) }
-          videos={this.state.videos} />
+        <div className='video__wrap'>
+          <VideoDetail video={this.state.selectedVideo} />
+          <VideoList
+            onVideoSelect={ selected => this.setState({selectedVideo: selected}) }
+            videos={this.state.videos} />
+        </div>
       </div>
     );
   }
