@@ -1,6 +1,7 @@
 'use strict';
 
 import React from 'react';
+import './video_detail.sass';
 
 const VideoDetail = (props) => {
   if (!props.video) {
@@ -13,14 +14,13 @@ const VideoDetail = (props) => {
   let url = `https://www.youtube.com/embed/${videoId}`;
 
   return (
-    <div>
-      <div>
+    <div className='video'>
+      <div className='video__player'>
         <iframe src={url}></iframe>
       </div>
-      <div>
-        <span>{videoTitle}</span>
-        <br />
-        <span>{videoDescrip}</span>
+      <div className='video__detail'>
+        <h2 className='video__title'>{videoTitle}</h2>
+        <p className='video__description'>{videoDescrip}</p>
       </div>
     </div>
   );
