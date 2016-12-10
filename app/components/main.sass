@@ -1,0 +1,25 @@
+@import '~breakpoint-sass/stylesheets/breakpoint'
+
+*,
+*::before,
+*::after
+  box-sizing: border-box
+
+body
+  background: #fff
+
+.container
+  padding: 20px
+  +breakpoint(610px)
+    width: 550px
+    margin: auto
+  +breakpoint(996px)
+    width: 100%
+
+.video__wrap
+  width: 100%
+  +breakpoint(996px)
+    max-width: 1243px
+    margin: auto
+    display: flex
+    align-items: flex-start
