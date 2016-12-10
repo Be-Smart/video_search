@@ -1,0 +1,23 @@
+@import '~breakpoint-sass/stylesheets/breakpoint'
+
+.video-list__item
+  margin: 0 0 10px
+  cursor: pointer
+  background: rgba(0,0,0,.05)
+  box-shadow: 0 1px 7px rgba(0,0,0,.3)
+  padding: 15px
+  display: flex
+  justify-content: space-between
+  color: rgba(0,0,0,.8)
+  transition: all ease .3s
+  &:hover
+    color: #0097A7
+
+  +breakpoint(480px)
+    justify-content: space-around
+
+.video-list__img
+  margin: 0 10px 0 0
+
+.video-list__title
+  width: 237px
