@@ -2,6 +2,7 @@
 
 import React from 'react';
 import VideoListItem from './../video_list_item';
+import './list.sass';
 
 const VideoList = (props) => {
   let videoItems = props.videos.map(item => {
@@ -14,7 +15,7 @@ const VideoList = (props) => {
   });
 
   return (
-    <ul>{videoItems}</ul>
+    <ul className='video-list'>{videoItems}</ul>
   );
 };
 
