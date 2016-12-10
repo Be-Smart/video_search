@@ -1,6 +1,7 @@
 'use strict';
 
 import React from 'react';
+import './search_bar.sass';
 
 class SearchBar extends React.Component {
   constructor (props) {
@@ -17,10 +18,12 @@ class SearchBar extends React.Component {
 
   render () {
     return (
-      <div>
+      <div className='video__search-bar'>
         <input
+          className='video__input-field'
           value={this.state.term}
-          onChange={this._onInputChange.bind(this)} />
+          onChange={this._onInputChange.bind(this)}
+          placeholder='search video' />
       </div>
     );
   }
