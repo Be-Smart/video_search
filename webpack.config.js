@@ -8,7 +8,9 @@ module.exports = {
   context: __dirname + '/app',
 
   entry: {
-    main: './main',
+    main: [
+      './main'
+    ],
   },
 
   output: {
@@ -24,10 +26,10 @@ module.exports = {
     loaders: [{
       test: /\.js$/,
       exclude: /node_modules/,
-      loader: 'babel',
-      query: {
-        presets: ['react', 'es2015']
-      }
+      loader: 'react-hot-loader/webpack!babel?presets[]=react&presets[]=es2015',
+      // query: {
+      //   presets: ['react', 'es2015']
+      // }
     },
     {
       test: /\.sass$/,
@@ -40,7 +42,7 @@ module.exports = {
   },
 
   plugins: [
-    new ExtractTextPlugin('[name].css', {allChunks: true, disable: env})
+    new ExtractTextPlugin('[name].css', {allChunks: true, disable: env}),
   ],
 
   devServer: {
@@ -48,6 +50,16 @@ module.exports = {
     hot: true
   }
 };
+
+if (env) {
+  module.exports.entry.main.unshift(
+    'react-hot-loader/patch',
+    'webpack-hot-middleware/client'
+  );
+  module.exports.plugins.push(
+    new webpack.HotModuleReplacementPlugin()
+  );
+}
 
 if (!env) {
   module.exports.plugins.push(
