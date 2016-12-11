@@ -14,8 +14,8 @@ module.exports = {
   },
 
   output: {
-    path: __dirname + '/public',
-    publicPath: '/public/',
+    path: __dirname + '/public/static',
+    publicPath: '/static/',
     filename: '[name].js',
     library: '[name]'
   },
@@ -46,7 +46,7 @@ module.exports = {
   ],
 
   devServer: {
-    contentBase: __dirname,
+    contentBase: __dirname + '/public',
     hot: true
   }
 };
